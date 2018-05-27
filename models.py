@@ -38,10 +38,14 @@ class DCGenerator(nn.Module):
     def __init__(self, noise_size, conv_dim):
         super(DCGenerator, self).__init__()
 
-        self.deconv1 = deconv(noise_size, conv_dim * 4, 4) # assume conv_dim = 32
-        self.deconv2 = deconv(conv_dim * 4, conv_dim * 2, 4)
-        self.deconv3 = deconv(conv_dim * 2, conv_dim, 4)
-        self.deconv4 = deconv(conv_dim, 3, 4)
+        ###########################################
+        ##           CREATE ARCHITECTURE         ##
+        ###########################################
+
+        self.deconv1 = deconv(noise_size, conv_dim * 4, kernel_size=4, stride=1, padding=0)
+        self.deconv2 = deconv(conv_dim * 4, conv_dim * 2, kernel_size=4, stride=2, padding=1)
+        self.deconv3 = deconv(conv_dim * 2, conv_dim, kernel_size=4, stride=2, padding=1)
+        self.deconv4 = deconv(conv_dim, 3, kernel_size=4, stride=2, padding=1, batch_norm=False)
 
     def forward(self, z):
         """Generates an image given a sample of random noise.
@@ -79,6 +83,21 @@ class CycleGenerator(nn.Module):
     def __init__(self, conv_dim=64, init_zero_weights=False):
         super(CycleGenerator, self).__init__()
 
+        ###########################################
+        ##          CREATE ARCHITECTURE          ##
+        ###########################################
+
+        # 1. Define the encoder part of the generator (that extracts features from the input image)
+        self.conv1 = conv(3, conv_dim, kernel_size=4)
+        self.conv2 = conv(conv_dim, conv_dim * 2, kernel_size=4)
+
+        # 2. Define the transformation part of the generator
+        self.resnet_block = ResnetBlock(conv_dim * 2)
+
+        # 3. Define the decoder part of the generator (that builds up the output image from features)
+        self.deconv1 = deconv(conv_dim * 2, conv_dim, kernel_size=4)
+        self.deconv2 = deconv(conv_dim, 3, kernel_size=4, batch_norm=False)
+
     def forward(self, x):
         """Generates an image conditioned on an input image.
 
@@ -109,12 +128,14 @@ class DCDiscriminator(nn.Module):
     def __init__(self, conv_dim=64):
         super(DCDiscriminator, self).__init__()
 
-        # conv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True, init_zero_weights=False)
+        ###########################################
+        ##           CREATE ARCHITECTURE         ##
+        ###########################################
 
-        self.conv1 = conv(3, conv_dim, 4)
-        self.conv2 = conv(conv_dim, conv_dim * 2, 4)
-        self.conv3 = conv(conv_dim * 2, conv_dim * 4, 4)
-        self.conv4 = conv(conv_dim * 4, 1, 4)
+        self.conv1 = conv(3, conv_dim, kernel_size=4, stride=2, padding=1)
+        self.conv2 = conv(conv_dim, conv_dim * 2, kernel_size=4, stride=2, padding=1)
+        self.conv3 = conv(conv_dim * 2, conv_dim * 4, kernel_size=4, stride=2, padding=1)
+        self.conv4 = conv(conv_dim * 4, 1, kernel_size=4, stride=1, padding=0, batch_norm=False)
 
     def forward(self, x):
 
