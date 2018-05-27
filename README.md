@@ -16,4 +16,4 @@ in exactly the same position as a horse, and with exactly the same background.
 CycleGANs enable learning a mapping from one domain X (say, images of horses) to
 another domain Y (images of zebras) without having to find perfectly matched training pairs.
 
-Machine Learning Framework: PyTorch
+Neural Net Framework: PyTorch
