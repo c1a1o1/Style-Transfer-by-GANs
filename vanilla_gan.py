@@ -1,5 +1,3 @@
-# CSC 321, Assignment 4
-#
 # This is the main training file for the vanilla GAN part of the assignment.
 #
 # Usage:
@@ -156,8 +154,6 @@ def training_loop(train_dataloader, opts):
             ################################################
 
             d_optimizer.zero_grad()
-
-            # FILL THIS IN
             # 1. Compute the discriminator loss on real images
             # D_real_loss = ...
 
@@ -181,8 +177,6 @@ def training_loop(train_dataloader, opts):
             ###########################################
 
             g_optimizer.zero_grad()
-
-            # FILL THIS IN
             # 1. Sample noise
             # noise = ...
 

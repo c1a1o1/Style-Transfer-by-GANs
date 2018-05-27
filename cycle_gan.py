@@ -1,6 +1,4 @@
-# CSC 321, Assignment 4
-#
-# This is the main training file for the CycleGAN part of the assignment.
+# This is the main training file for the CycleGAN.
 #
 # Usage:
 # ======
@@ -9,13 +7,6 @@
 #
 #    To train with cycle consistency loss (saves results to samples_cyclegan_cycle/):
 #       python cycle_gan.py --use_cycle_consistency_loss
-#
-#
-#    For optional experimentation:
-#    -----------------------------
-#    If you have a powerful computer (ideally with a GPU), then you can obtain better results by
-#    increasing the number of filters used in the generator and/or discriminator, as follows:
-#      python cycle_gan.py --g_conv_dim=64 --d_conv_dim=64
 
 import os
 import pdb
@@ -222,10 +213,6 @@ def training_loop(dataloader_X, dataloader_Y, test_dataloader_X, test_dataloader
         #            TRAIN THE DISCRIMINATORS
         # ============================================
 
-        #########################################
-        ##             FILL THIS IN            ##
-        #########################################
-
         # Train with real images
         d_optimizer.zero_grad()
 
@@ -262,10 +249,6 @@ def training_loop(dataloader_X, dataloader_Y, test_dataloader_X, test_dataloader
         #            TRAIN THE GENERATORS
         # =========================================
 
-
-        #########################################
-        ##    FILL THIS IN: Y--X-->Y CYCLE     ##
-        #########################################
         g_optimizer.zero_grad()
 
         # 1. Generate fake images that look like domain X based on real images in domain Y
@@ -282,12 +265,6 @@ def training_loop(dataloader_X, dataloader_Y, test_dataloader_X, test_dataloader
 
         g_loss.backward()
         g_optimizer.step()
-
-
-
-        #########################################
-        ##    FILL THIS IN: X--Y-->X CYCLE     ##
-        #########################################
 
         g_optimizer.zero_grad()
 

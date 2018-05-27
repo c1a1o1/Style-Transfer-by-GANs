@@ -1,10 +1,5 @@
-# CSC 321, Assignment 4
-#
 # This is a script to check whether the outputs of your CycleGenerator, DCDiscriminator, and
 # CycleGenerator models produce the expected outputs.
-#
-# NOTE THAT THIS MODEL CHECKER IS PROVIDED FOR CONVENIENCE ONLY, AND MAY PRODUCE FALSE NEGATIVES.
-# DO NOT USE THIS AS THE ONLY WAY TO CHECK THAT YOUR MODEL IS CORRECT.
 #
 # Usage:
 # ======

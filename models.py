@@ -1,15 +1,8 @@
-# CSC 321, Assignment 4
-#
 # This file contains the models used for both parts of the assignment:
 #
 #   - DCGenerator       --> Used in the vanilla GAN in Part 1
 #   - CycleGenerator    --> Used in the CycleGAN in Part 2
 #   - DCDiscriminator   --> Used in both the vanilla GAN and CycleGAN (Parts 1 and 2)
-#
-# For the assignment, you are asked to create the architectures of these three networks by
-# filling in the __init__ methods in the DCGenerator, CycleGenerator, and DCDiscriminator classes.
-# Note that the forward passes of these models are provided for you, so the only part you need to
-# fill in is __init__.
 
 import pdb
 import torch
@@ -44,12 +37,6 @@ def conv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm
 class DCGenerator(nn.Module):
     def __init__(self, noise_size, conv_dim):
         super(DCGenerator, self).__init__()
-
-        ###########################################
-        ##   FILL THIS IN: CREATE ARCHITECTURE   ##
-        ###########################################
-
-        # deconv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True):
 
         self.deconv1 = deconv(noise_size, conv_dim * 4, 4) # assume conv_dim = 32
         self.deconv2 = deconv(conv_dim * 4, conv_dim * 2, 4)
@@ -92,21 +79,6 @@ class CycleGenerator(nn.Module):
     def __init__(self, conv_dim=64, init_zero_weights=False):
         super(CycleGenerator, self).__init__()
 
-        ###########################################
-        ##   FILL THIS IN: CREATE ARCHITECTURE   ##
-        ###########################################
-
-        # 1. Define the encoder part of the generator (that extracts features from the input image)
-        # self.conv1 = conv(...)
-        # self.conv2 = conv(...)
-
-        # 2. Define the transformation part of the generator
-        # self.resnet_block = ...
-
-        # 3. Define the decoder part of the generator (that builds up the output image from features)
-        # self.deconv1 = deconv(...)
-        # self.deconv2 = deconv(...)
-
     def forward(self, x):
         """Generates an image conditioned on an input image.
 
@@ -136,10 +108,6 @@ class DCDiscriminator(nn.Module):
     """
     def __init__(self, conv_dim=64):
         super(DCDiscriminator, self).__init__()
-
-        ###########################################
-        ##   FILL THIS IN: CREATE ARCHITECTURE   ##
-        ###########################################
 
         # conv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True, init_zero_weights=False)
 
